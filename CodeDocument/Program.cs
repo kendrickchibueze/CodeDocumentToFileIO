@@ -13,7 +13,14 @@ namespace CodeDocument
             Utility.PrintColorMessage(ConsoleColor.Yellow, "************ Welcome to the In-House Code Documentation Tool********\n\n");
 
 
-            InHouseCode.GetDocs();
+           
+
+            InHouseCodeFile.GetDocs();
+
+
+            InHouseCodeFile.RunJSONfile();  
+
+            
         }
 
 
