@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Threading.Tasks;
+using CodeDocumentation;
 
 namespace CodeDocument
 {
@@ -32,6 +33,8 @@ namespace CodeDocument
 
         public static void GetDocs()
         {
+
+            Utility.PrintColorMessage(ConsoleColor.Cyan, "************ Welcome to the In-House Code Documentation Tool(JSON)********\n\n");
             // Get all types in the assembly
             var types = Assembly.GetExecutingAssembly().GetTypes();
 

@@ -11,17 +11,10 @@ namespace CodeDocument
     {
         static void Main(string[] args)
         {
-            Utility.PrintColorMessage(ConsoleColor.Yellow, "************ Welcome to the In-House Code Documentation Tool********\n\n");
+            Utility.PrintColorMessage(ConsoleColor.Cyan, "************ Welcome to the In-House Code Documentation Tool********\n\n");
 
 
-
-
-            //InHouseCodeToFile.GetDocs();
-
-
-            //InHouseCodeToJson.GetDocs();  
-
-            PDFGenerator.GetDocs();
+            Utility.ChooseAction();
 
 
 

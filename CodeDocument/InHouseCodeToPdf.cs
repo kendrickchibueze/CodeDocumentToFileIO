@@ -6,6 +6,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using AttributeLibrary;
+using CodeDocumentation;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Document = iTextSharp.text.Document;
@@ -146,6 +147,8 @@ namespace CodeDocument
                             {
                                 throw new Exception("The document is not open, cannot add content to it.");
                             }
+
+                            Utility.PrintColorMessage(ConsoleColor.Yellow, "We have successfully created a PDF file...");
 
                             // Close the document
                             doc.Close();
