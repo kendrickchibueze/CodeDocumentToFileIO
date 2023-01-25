@@ -11,8 +11,6 @@ This is a retrofit to our former app on In House code documentation. But now, we
 The screenshot of the sample display of our output code shows the following:
 
 ![](https://github.com/kendrickchibueze/-Modern-Node-on-AWS/blob/main/Screenshot%20(480).png?raw=true)
-
-
 !["1st screenshot"](https://github.com/kendrickchibueze/-Modern-Node-on-AWS/blob/main/Screenshot%20(475).png?raw=true)
 !["2nd screenshot](https://github.com/kendrickchibueze/-Modern-Node-on-AWS/blob/main/Screenshot%20(476).png?raw=true)
 
