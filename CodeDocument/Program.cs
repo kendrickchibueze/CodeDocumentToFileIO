@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Reflection.Metadata;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using static CodeDocument.InHouseCodeToPdf;
 
 namespace CodeDocument
 {
@@ -13,14 +14,17 @@ namespace CodeDocument
             Utility.PrintColorMessage(ConsoleColor.Yellow, "************ Welcome to the In-House Code Documentation Tool********\n\n");
 
 
-           
-
-            InHouseCodeFile.GetDocs();
 
 
-            InHouseCodeFile.RunJSONfile();  
+            //InHouseCodeToFile.GetDocs();
 
-            
+
+            //InHouseCodeToJson.GetDocs();  
+
+            PDFGenerator.GetDocs();
+
+
+
         }
 
 

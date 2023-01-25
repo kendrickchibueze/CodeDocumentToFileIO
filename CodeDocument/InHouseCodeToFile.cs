@@ -11,27 +11,28 @@ using System.Text.Json;
 
 namespace CodeDocument
 {
-    internal class InHouseCodeFile {
+    public class InHouseCodeToFile {
 
 
-        public static string GetDocs()
+        public static void GetDocs()
         {
-            // Get all types in the assembly
+            
             var types = Assembly.GetExecutingAssembly().GetTypes();
 
-            // Create a string to store the documentation
+            
             string documentation = "";
 
-            // Loop through each type
+            
             foreach (var type in types)
             {
-                // Check if the type is a class
+                
                 if (type.IsClass)
                 {
-                    // Get the DocumentAttribute for the class, if it exists
+                    
                     var typeAttribute = (DocumentAttribute)type.GetCustomAttribute(typeof(DocumentAttribute));
 
                     // If the class has the DocumentAttribute, add its documentation to the string
+
                     if (typeAttribute != null)
                     {
                         documentation += "Class: " + type.Name + "\n";
@@ -43,16 +44,17 @@ namespace CodeDocument
                         documentation += "Output: " + typeAttribute.Output + "\n\n";
                     }
 
-                    // Get the constructors of the class
+                    
                     var constructors = type.GetConstructors();
 
-                    // Loop through each constructor
+                  
                     foreach (var constructor in constructors)
                     {
-                        // Get the DocumentAttribute for the constructor, if it exists
+                        
                         var constructorAttribute = (DocumentAttribute)constructor.GetCustomAttribute(typeof(DocumentAttribute));
 
                         // If the constructor has the DocumentAttribute, add its documentation to the string
+
                         if (constructorAttribute != null)
                         {
                             documentation += "Constructor: " + constructor.Name + "\n";
@@ -65,16 +67,17 @@ namespace CodeDocument
                         }
                     }
 
-                    // Get the properties of the class
+                    
                     var properties = type.GetProperties();
 
-                    // Loop through each property
+                    
                     foreach (var property in properties)
                     {
-                        // Get the DocumentAttribute for the property, if it exists
+                       
                         var propertyAttribute = (DocumentAttribute)property.GetCustomAttribute(typeof(DocumentAttribute));
 
                         // If the property has the DocumentAttribute, add its documentation to the string
+
                         if (propertyAttribute != null)
                         {
                             documentation += "Property: " + property.Name + "\n";
@@ -88,6 +91,7 @@ namespace CodeDocument
                     }
                 }
                 // Check if the type is an Enum
+
                 else if (type.IsEnum)
                 {
                     var typeattribute = (DocumentAttribute)type.GetCustomAttribute(typeof(DocumentAttribute));
@@ -99,8 +103,8 @@ namespace CodeDocument
                         documentation += "Description: " + typeattribute.Description + "\n\n\n";
                     }
                 }
-            
-            
+
+
                 // Check if the type is an Interface
                 else if (type.IsInterface)
                 {
@@ -109,17 +113,19 @@ namespace CodeDocument
             }
 
 
-            // Create a StreamWriter to write the documentation to a file
+            //Create a StreamWriter to write the documentation to a file
+
             using (StreamWriter writer = new StreamWriter("documentationTwo.txt"))
             {
                 writer.Write(documentation);
             }
 
-            // Now read data from file.
-            
+            // Now read data from file to console
+
             using (StreamReader sr = File.OpenText("documentationTwo.txt"))
             {
                 string input = null;
+
                 while ((input = sr.ReadLine()) != null)
                 {
                     Console.WriteLine(input);
@@ -128,55 +134,15 @@ namespace CodeDocument
 
 
 
-            return documentation;
-            
-
-
-            Console.ReadLine();
-
-           
-
-
 
         }
 
 
 
-        public static void RunJSONfile()
-        {
-            string document = GetDocs();
-            SaveAsJsonFormat(document, "documentation.json");
-        }
 
 
 
-      
 
-
-        public static void SaveAsJsonFormat<T>(T objGraph, string fileName)
-        {
-
-            var options = new JsonSerializerOptions
-            {
-                //PropertyNamingPolicy = null,
-                //IncludeFields = true,
-                //WriteIndented = true,
-
-
-
-                PropertyNameCaseInsensitive = true,
-                //PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                PropertyNamingPolicy = null, //Pascal casing
-                IncludeFields = true,
-                WriteIndented = true,
-                NumberHandling = JsonNumberHandling.AllowReadingFromString | JsonNumberHandling.WriteAsString
-            };
-
-            File.WriteAllText(fileName, System.Text.Json.JsonSerializer.Serialize(objGraph, options));
-
-
-
-        }
 
 
 
