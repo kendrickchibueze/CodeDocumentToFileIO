@@ -9,6 +9,7 @@ using AttributeLibrary;
 using CodeDocumentation;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
 using Document = iTextSharp.text.Document;
 
 
@@ -16,152 +17,55 @@ namespace CodeDocument
 {
     internal class InHouseCodeToPdf
     {
-
-
-        public static class PDFGenerator
+        public static void CreateAndReadPDF()
         {
-            public static string _documentation;
 
-            public static void GetDocs()
+            Console.Clear();
+
+            Utility.PrintColorMessage(ConsoleColor.Cyan, "************ Welcome to the In-House Code Documentation Tool(PDF)********\n\n");
+
+
+            string documentation = InHouse.GetDocs();
+
+            //create a pdf file and write to it
+
+            using (FileStream fs = new FileStream("Besters.pdf", FileMode.Create))
             {
-                var types = Assembly.GetExecutingAssembly().GetTypes();
-
-                _documentation = "";
-
-                foreach (var type in types)
+                using (Document doc = new Document())
                 {
-                    if (type.IsClass)
+                    using (PdfWriter writer = PdfWriter.GetInstance(doc, fs))
                     {
-                        var typeAttribute = (DocumentAttribute)type.GetCustomAttribute(typeof(DocumentAttribute));
+                        doc.Open();
 
-                        if (typeAttribute != null)
-                        {
-                            _documentation += "Class: " + type.Name + "\n";
+                        doc.Add(new Paragraph(documentation));
 
-                            _documentation += "Description: " + typeAttribute.Description + "\n";
+                        doc.Close();
 
-                            _documentation += "Input: " + typeAttribute.Input + "\n";
-
-                            _documentation += "Output: " + typeAttribute.Output + "\n\n";
-                        }
-
-                        var constructors = type.GetConstructors();
-
-                        foreach (var constructor in constructors)
-                        {
-                            var constructorAttribute = (DocumentAttribute)constructor.GetCustomAttribute(typeof(DocumentAttribute));
-
-                            if (constructorAttribute != null)
-                            {
-                                _documentation += "Constructor: " + constructor.Name + "\n";
-
-                                _documentation += "Description: " + constructorAttribute.Description + "\n";
-
-                                _documentation += "Input: " + constructorAttribute.Input + "\n";
-
-                                _documentation += "Output: " + constructorAttribute.Output + "\n\n";
-                            }
-                        }
-
-                        var properties = type.GetProperties();
-
-                        foreach (var property in properties)
-                        {
-                            var propertyAttribute = (DocumentAttribute)property.GetCustomAttribute(typeof(DocumentAttribute));
-
-                            if (propertyAttribute != null)
-                            {
-                                _documentation += "Property: " + property.Name + "\n";
-
-                                _documentation += "Description: " + propertyAttribute.Description + "\n";
-
-                                _documentation += "Input: " + propertyAttribute.Input + "\n";
-
-                                _documentation += "Output: " + propertyAttribute.Output + "\n\n";
-                            }
-                        }
-                    }
-                    else if (type.IsEnum)
-                    {
-                        var typeattribute = (DocumentAttribute)type.GetCustomAttribute(typeof(DocumentAttribute));
-
-                        if (typeattribute != null)
-                        {
-                            _documentation += "Enum: " + type.Name + "\n";
-
-                            _documentation += "Description: " + typeattribute.Description + "\n\n\n";
-                        }
-                    }
-                    else if (type.IsInterface)
-                    {
-                        _documentation += "Interface: " + type.Name + "\n\n";
+                       
                     }
                 }
-
-
-
-
-
-                //write output to a pdf file
-
-                try
-                {
-                    // Check if the documentation variable is not empty or null
-                    if (string.IsNullOrEmpty(_documentation))
-                    {
-                        throw new Exception("The documentation variable is empty or null");
-                    }
-
-                    // Set the path and file name for the PDF
-                    var pdfFile = "documentation.pdf";
-
-                  
-
-                    // Create a new file stream to write the PDF
-                    using (var stream = new FileStream(pdfFile, FileMode.Create))
-                    {
-                        // Create a new PDF document
-                        using (var doc = new Document())
-                        {
-                            // Set the page size and margins
-                            doc.SetPageSize(PageSize.A4);
-
-                            doc.SetMargins(36, 36, 36, 36);
-
-                            // Create a new PDF writer for the document
-                            var writer = PdfWriter.GetInstance(doc, stream);
-
-                            // Open the document for writing
-                            doc.Open();
-
-                            // Check if the document is open before adding any content
-                            if (doc.IsOpen())
-                            {
-                                // Create a new paragraph with the documentation string
-                                var para = new Paragraph(_documentation);
-
-                                // Add the paragraph to the document
-                                doc.Add(para);
-                            }
-                            else
-                            {
-                                throw new Exception("The document is not open, cannot add content to it.");
-                            }
-
-                            Utility.PrintColorMessage(ConsoleColor.Yellow, "We have successfully created a PDF file...");
-
-                            // Close the document
-                            doc.Close();
-                        }
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("An error occurred: " + ex.Message);
-                }
+                
             }
+
+           
+
+
+            //read from pdf to the console
+
+            using (PdfReader reader = new PdfReader("Besters.pdf"))
+            {
+                StringBuilder text = new StringBuilder();
+
+                for (int i = 1; i <= reader.NumberOfPages; i++)
+                {
+                    text.Append(PdfTextExtractor.GetTextFromPage(reader, i));
+                }
+                Console.WriteLine(text.ToString());
+            }
+
+
         }
+
     }
 }
 

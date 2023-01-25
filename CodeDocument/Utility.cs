@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static CodeDocument.InHouseCodeToPdf;
+
 
 namespace CodeDocumentation
 {
@@ -39,7 +39,7 @@ namespace CodeDocumentation
             PrintColorMessage(ConsoleColor.Yellow, "|                                    |");
             PrintColorMessage(ConsoleColor.Yellow, "| 1. Write to File & Read to Console |");
             PrintColorMessage(ConsoleColor.Yellow, "| 2. Write to JSON & Read to Console |");
-            PrintColorMessage(ConsoleColor.Yellow, "| 3. Write to Pdf                    |");
+            PrintColorMessage(ConsoleColor.Yellow, "| 3. Write to Pdf & Read to Console  |");
             PrintColorMessage(ConsoleColor.Yellow, "| 4. Exit                            |");
             PrintColorMessage(ConsoleColor.Yellow, "|                                    |");
             PrintColorMessage(ConsoleColor.Yellow, "|                                    |");
@@ -70,7 +70,7 @@ namespace CodeDocumentation
 
                         Console.Clear();
 
-                        InHouseCodeToFile.GetDocs();
+                        InHouseCodeToFile.CreateAndReadFile();
 
                         goto nextattempt;
                         
@@ -90,7 +90,13 @@ namespace CodeDocumentation
                     case 3:
                         Console.Clear();
 
-                        PDFGenerator.GetDocs();
+                        PrintColorMessage(ConsoleColor.Yellow, "Successfully created a PDF file...");
+
+                        Console.WriteLine();
+
+                        Thread.Sleep(1000);
+
+                        InHouseCodeToPdf.CreateAndReadPDF();
 
                         goto nextattempt;
 
@@ -104,7 +110,7 @@ namespace CodeDocumentation
 
                     default:
 
-                        Console.WriteLine("Invalid entry, please try again!!!");
+                        PrintColorMessage(ConsoleColor.Red, "Invalid entry, please try again!!!");
 
                         goto attempt;
 
@@ -115,7 +121,7 @@ namespace CodeDocumentation
                 }
 
             }
-            catch(Exception ex)
+            catch
             {
                 PrintColorMessage(ConsoleColor.Red, "Invalid entry, please try again!!!");
 
@@ -163,7 +169,7 @@ namespace CodeDocumentation
                 }
 
             }
-            catch(Exception ex)
+            catch
             {
                 PrintColorMessage(ConsoleColor.Red, "please enter a valid option");
 

@@ -35,7 +35,8 @@ namespace CodeDocument
         {
 
             Utility.PrintColorMessage(ConsoleColor.Cyan, "************ Welcome to the In-House Code Documentation Tool(JSON)********\n\n");
-            // Get all types in the assembly
+
+            
             var types = Assembly.GetExecutingAssembly().GetTypes();
 
             var documentation = new Documentation()
@@ -67,6 +68,7 @@ namespace CodeDocument
 
                 // Get properties
                 var properties = type.GetProperties();
+
                 foreach (var property in properties)
                 {
                     var propertyAttribute = (DocumentAttribute)property.GetCustomAttribute(typeof(DocumentAttribute));
