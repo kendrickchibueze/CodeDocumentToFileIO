@@ -6,7 +6,10 @@ respectively. When **GetDocs()** is called it displays details of all codes docu
 
 This is a retrofit to our former app on In House code documentation. But now, we can write the output of GetDocs() method to text file and to JSON file and read their contents to the console. We can seamlessly create write the output of the GetDocs() method  to a PDF file.
 
-
+## Basic Functionality🤷‍♀️🔥
+* Write the output of GetDocs() to a text file and Read to Console.😯
+* Write the output of GetDocs() to a JSON file and Read to Console.😮
+* Write the output of GetDocs() to a PDF file and Read to Console. 😎
 
 The screenshot of the sample display of our output code shows the following:
 
